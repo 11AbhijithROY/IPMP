@@ -1,0 +1,43 @@
+#include<vector>
+#include<iostream>
+using namespace std;
+class Solution
+{
+    public:
+    vector<int> merge(vector<int> arr, int l, int m, int r)
+    {
+         // Your code here
+         int i, j;
+         int n1 = m - l + 1;
+         int n2 = r - m;
+         //two temp arrays
+         int L[n1], R[n2];
+         for(i = 0;i < n1;i++) {
+             L[i] = arr[l + i];
+         }
+         for(j = 0;j < n2;j++) {
+             R[j] = arr[m + 1 + j];
+         }
+         int k = l;
+         while(i < n1 && j < n2) {
+             if(L[i] <= R[j])
+                arr[k++] = L[i++];
+            else
+                arr[k++] = R[j++];
+         }
+         //remaining elements
+         while(i < n1) arr[k++] = L[i++];
+         while(j < n2) arr[k++] = R[j++];
+         return arr;
+    }
+    void mergeSort(vector<int> arr, int l, int r)
+    {
+        //code here
+        if(l > r){
+            int m = (l + r)/2;
+            mergeSort(arr, l, m);
+            mergeSort(arr, m + 1, r);
+            arr = merge(arr, l, m, r);
+        }
+    }
+};
